@@ -18,7 +18,7 @@ def items():
 ##
 # View route
 ##
-
+#wale
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def index(path):
