@@ -1,12 +1,96 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='UTF-8' />
-    <title>Hello!</title>
-    <base href='/'>
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
-  </head>
-  <body>
-    <div id='app'></div>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title>Attach a popup to a marker instance</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <style>
+    #marker {
+      background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #marker2 {
+      background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .mapboxgl-popup {
+      max-width: 200px;
+    }
+
+    
+  </style>
+
+  <div id="map"></div>
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiamFzb25kYW9rIiwiYSI6ImNsMjJmdWJmNzEwbm8za21qb3FqN3dzcGgifQ.Hd8krQ1vGdKIUp3bb4bQ0g';
+    const monument = [-121.74609399016461, 38.53589572333098];
+    const mon2 = [-121.74872958511443, 38.535051362452805]
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v10',
+      center: monument,
+      zoom: 15
+    });
+
+    // create the popup
+    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+      'Construction on the ARC CENTER @ DA VIS began in 1848.'
+    );
+
+    const popup2 = new mapboxgl.Popup({ offset: 25 }).setText(
+      'Construction on the SACRAMENTO began in 1848.'
+    );
+
+    // create DOM element for the marker
+    const el = document.createElement('div');
+    el.id = 'marker';
+
+    const el2 = document.createElement('div');
+    el2.id = 'marker2';
+
+    // create the marker
+    new mapboxgl.Marker(el)
+      .setLngLat(monument)
+      .setPopup(popup) // sets a popup on this marker
+      .addTo(map);
+
+    new mapboxgl.Marker(el2)
+      .setLngLat(mon2)
+      .setPopup(popup2) // sets a popup on this marker
+      .addTo(map);
+  </script>
+
+</body>
+
 </html>
